@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية مآب لتحفيظ القرآن الكريم</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #bbe1fa 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .islamic-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.5); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .packages-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            color: #0f4c75;
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border-radius: 2px;
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .package-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .package-card:hover::before {
+            left: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: #ffd700;
+        }
+        
+        .package-card.selected {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .package-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .package-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0f4c75;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3282b8;
+            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background: rgba(15, 76, 117, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(15, 76, 117, 0.2);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-left: 8px;
+            accent-color: #3282b8;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .features-highlight {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .features-highlight h4 {
+            color: #0f4c75;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            color: #0f4c75;
+            font-size: 0.9rem;
+        }
+        
+        .feature-item::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .age-groups {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .age-group {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .age-group:hover,
+        .age-group.selected {
+            border-color: #ffd700;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .subject-card {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            color: #0f4c75;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+        
+        .subject-card:hover,
+        .subject-card.selected {
+            border-color: #0f4c75;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .emailjs-instructions {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px dashed #ffd700;
+        }
+        
+        .emailjs-instructions h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .emailjs-instructions ol {
+            padding-right: 20px;
+        }
+        
+        .emailjs-instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .emailjs-instructions code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        /* Styles from contact_us_page.html */
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            animation: cardSlideUp 1s ease-out;
+            margin-top: 30px; /* Added margin to separate from previous section */
+        }
+
+        @keyframes cardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="50" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 0;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 50px 40px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+            animation: slideInRight 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .contact-item:nth-child(1) { animation-delay: 0.2s; }
+        .contact-item:nth-child(2) { animation-delay: 0.4s; }
+        .contact-item:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-details {
+            color: white;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .form-section {
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            position: relative;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.3s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+            animation-delay: 0.7s;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: #333;
+            color: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            animation: slideInUp 0.8s ease-out 0.8s forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .social-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-8px) scale(1.2);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .form-section, .contact-info {
+                padding: 30px 20px;
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .error-message {
+            animation: slideInRight 0.3s ease-out;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="islamic-pattern"></div>
+    <div class="floating-elements">
+        <div class="floating-element" style="top: 10%; right: 10%; animation-delay: 0s;">☪</div>
+        <div class="floating-element" style="top: 20%; left: 15%; animation-delay: 1s;">✦</div>
+        <div class="floating-element" style="top: 70%; right: 20%; animation-delay: 2s;">❋</div>
+        <div class="floating-element" style="top: 80%; left: 10%; animation-delay: 3s;">⟡</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+            <h1 class="logo">🕌 أكاديمية مآب لتحفيظ القرآن الكريم</h1>
+            <p class="subtitle">تعلم القرآن الكريم بأحدث الطرق التفاعلية مع نخبة من المعلمين المتخصصين</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="packages-section">
+                <h2 class="section-title">🎓 اختر الباقة المناسبة</h2>
+                
+                <div class="packages-grid">
+                    <div class="package-card" data-package="bronze">
+                        <h3>📚 الباقة البرونزية</h3>
+                        <p>مناسبة للمبتدئين<br>حصتان أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="silver">
+                        <h3>🥈 الباقة الفضية</h3>
+                        <p>للمستوى المتوسط<br>3 حصص أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="gold">
+                        <h3>🥇 الباقة الذهبية</h3>
+                        <p>للمتقدمين<br>5 حصص أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="platinum">
+                        <h3>💎 الباقة البلاتينية</h3>
+                        <p>التحفيظ المكثف<br>يومياً</p>
+                    </div>
+                    <div class="package-card" data-package="diamond">
+                        <h3>💍 الباقة الماسية</h3>
+                        <p>برنامج شامل متكامل<br>مع التجويد والتفسير</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: #0f4c75; margin-bottom: 15px;">🎯 الفئات العمرية</h3>
+                <div class="age-groups">
+                    <div class="age-group" data-age="children">
+                        <h4>أطفال</h4>
+                        <p>4-12 سنة</p>
+                    </div>
+                    <div class="age-group" data-age="youth">
+                        <h4>شباب</h4>
+                        <p>13-25 سنة</p>
+                    </div>
+                    <div class="age-group" data-age="adults">
+                        <h4>بالغين</h4>
+                        <p>26+ سنة</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: #0f4c75; margin-bottom: 15px;">📖 المواد الدراسية</h3>
+                <div class="subjects-grid">
+                    <div class="subject-card" data-subject="quran">
+                        <h4>القرآن الكريم</h4>
+                    </div>
+                    <div class="subject-card" data-subject="tajweed">
+                        <h4>التجويد</h4>
+                    </div>
+                    <div class="subject-card" data-subject="tafseer">
+                        <h4>التفسير</h4>
+                    </div>
+                    <div class="subject-card" data-subject="arabic">
+                        <h4>اللغة العربية</h4>
+                    </div>
+                    <div class="subject-card" data-subject="islam">
+                        <h4>أساسيات الدين</h4>
+                    </div>
+                    <div class="subject-card" data-subject="french">
+                        <h4>فرنسية</h4>
+                    </div>
+                </div>
+                
+                <div class="features-highlight">
+                    <h4>🌟 مميزات الأكاديمية</h4>
+                    <div class="features-list">
+                        <div class="feature-item">أول حصة مجانية</div>
+                        <div class="feature-item">حلقات فردية ومشتركة</div>
+                        <div class="feature-item">تدريس بطرق تفاعلية</div>
+                        <div class="feature-item">معلمين متخصصين</div>
+                        <div class="feature-item">مواعيد مرنة</div>
+                        <div class="feature-item">متابعة الأهل للأطفال</div>
+                        <div class="feature-item">حفظ منهجي منظم</div>
+                        <div class="feature-item">إجازات معتمدة</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2 class="section-title">📝 نموذج التسجيل</h2>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">👤 الاسم الكامل *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">📧 البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">📱 رقم الهاتف *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">🎂 العمر *</label>
+                        <select id="age" name="age" required>
+                            <option value="">اختر العمر</option>
+                            <option value="4-6">4-6 سنوات</option>
+                            <option value="7-9">7-7 سنوات</option>
+                            <option value="10-12">10-12 سنة</option>
+                            <option value="13-16">13-16 سنة</option>
+                            <option value="17-25">17-25 سنة</option>
+                            <option value="26-35">26-35 سنة</option>
+                            <option value="36-50">36-50 سنة</option>
+                            <option value="50+">أكثر من 50 سنة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">👥 الجنس *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">اختر الجنس</option>
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentLevel">📊 مستوى الحفظ الحالي *</label>
+                        <select id="currentLevel" name="currentLevel" required>
+                            <option value="">اختر المستوى</option>
+                            <option value="beginner">مبتدئ (لا يحفظ شيئاً)</option>
+                            <option value="basic">أساسي (بعض السور القصيرة)</option>
+                            <option value="intermediate">متوسط (جزء واحد أو أكثر)</option>
+                            <option value="advanced">متقدم (عدة أجزاء)</option>
+                            <option value="expert">خبير (حافظ للقرآن كاملاً)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionsPerWeek">📅 عدد الحصص المطلوبة أسبوعياً *</label>
+                        <select id="sessionsPerWeek" name="sessionsPerWeek" required>
+                            <option value="">اختر عدد الحصص</option>
+                            <option value="1">حصة واحدة</option>
+                            <option value="2">حصتان</option>
+                            <option value="3">3 حصص</option>
+                            <option value="4">4 حصص</option>
+                            <option value="5">5 حصص</option>
+                            <option value="6">6 حصص</option>
+                            <option value="7">يومياً (7 حصص)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>🕐 الأوقات المناسبة *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <label>الفجر (5-7 ص)</label>
+                                <input type="checkbox" name="timeSlots" value="dawn">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الصباح (8-12 ظ)</label>
+                                <input type="checkbox" name="timeSlots" value="morning">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الظهر (12-3 ع)</label>
+                                <input type="checkbox" name="timeSlots" value="noon">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>العصر (3-6 م)</label>
+                                <input type="checkbox" name="timeSlots" value="afternoon">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>المغرب (6-8 م)</label>
+                                <input type="checkbox" name="timeSlots" value="evening">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>العشاء (8-11 م)</label>
+                                <input type="checkbox" name="timeSlots" value="night">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredDays">📆 الأيام المفضلة *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <label>السبت</label>
+                                <input type="checkbox" name="preferredDays" value="saturday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الأحد</label>
+                                <input type="checkbox" name="preferredDays" value="sunday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الاثنين</label>
+                                <input type="checkbox" name="preferredDays" value="monday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الثلاثاء</label>
+                                <input type="checkbox" name="preferredDays" value="tuesday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الأربعاء</label>
+                                <input type="checkbox" name="preferredDays" value="wednesday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الخميس</label>
+                                <input type="checkbox" name="preferredDays" value="thursday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الجمعة</label>
+                                <input type="checkbox" name="preferredDays" value="friday">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialNeeds">🎯 احتياجات خاصة أو ملاحظات</label>
+                        <textarea id="specialNeeds" name="specialNeeds" rows="4" placeholder="اكتب أي احتياجات خاصة أو ملاحظات تريد إضافتها..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">🌍 الدولة *</label>
+                        <select id="country" name="country" required>
+                            <option value="">اختر الدولة</option>
+                            <option value="egypt">مصر</option>
+                            <option value="saudi">السعودية</option>
+                            <option value="uae">الإمارات</option>
+                            <option value="jordan">الأردن</option>
+                            <option value="lebanon">لبنان</option>
+                            <option value="syria">سوريا</option>
+                            <option value="iraq">العراق</option>
+                            <option value="kuwait">الكويت</option>
+                            <option value="qatar">قطر</option>
+                            <option value="bahrain">البحرين</option>
+                            <option value="oman">عُمان</option>
+                            <option value="yemen">اليمن</option>
+                            <option value="morocco">المغرب</option>
+                            <option value="algeria">الجزائر</option>
+                            <option value="tunisia">تونس</option>
+                            <option value="libya">ليبيا</option>
+                            <option value="sudan">السودان</option>
+                            <option value="palestine">فلسطين</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">إرسال طلب التسجيل</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <div class="hero-section">
+                <h1 class="hero-title">تواصل معنا</h1>
+                <p class="hero-subtitle">نحن هنا للإجابة على جميع استفساراتك وخدمتك على مدار الساعة</p>
+            </div>
+            <div class="content-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <div class="contact-label">البريد الإلكتروني</div>
+                            <div class="contact-value">ah1623801@gmail.com</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <div class="contact-label">رقم الهاتف</div>
+                            <div class="contact-value">+20 123 456 7890</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <div class="contact-label">الموقع</div>
+                            <div class="contact-value">القاهرة، مصر</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <form action="https://formsubmit.co/ah1623801@gmail.com" method="POST" id="contactFormNew">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://yourdomain.com/thanks.html"> <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" class="form-input" placeholder="اسمك الكامل" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="emailContact" name="email" class="form-input" placeholder="بريدك الإلكتروني" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phoneContact" name="phone" class="form-input" placeholder="رقم هاتفك (اختياري)">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="subjectContact" name="_subject" class="form-input" placeholder="الموضوع" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <textarea id="messageContact" name="message" class="form-textarea" placeholder="رسالتك" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+            <div class="social-section">
+                <h3 class="social-title">تواصل معنا عبر وسائل التواصل الاجتماعي</h3>
+                <div class="social-links">
+                    <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" class="social-link" style="background: linear-gradient(135deg, #25D366, #128C7E);">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank" class="social-link" style="background: linear-gradient(135deg, #0088CC, #005A87);">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="mailto:ah1623801@gmail.com" class="social-link" style="background: linear-gradient(135deg, #BB001B, #AA0011);">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="#" target="_blank" class="social-link" style="background: linear-gradient(135deg, #4267B2, #365899);">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Existing JavaScript from index (1).html
+        // Initialize EmailJS with your User ID
+        (function() {
+            emailjs.init("YOUR_USER_ID"); // استبدل هذا بـ ID المستخدم الخاص بك من EmailJS
+        })();
+
+        // Existing functions from index (1).html
+        function createFloatingElements() {
+            const symbols = ['📖', '⭐', '✨', '🌙', '🕋'];
+            const floatingElementsContainer = document.querySelector('.floating-elements');
+            
+            setInterval(() => {
+                if (floatingElementsContainer) {
+                    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                    const size = Math.random() * 1 + 0.5; // 0.5 to 1.5rem
+                    const x = Math.random() * 100; // 0 to 100%
+                    const y = Math.random() * 100; // 0 to 100%
+                    const delay = Math.random() * 5; // 0 to 5s delay
+                    const duration = Math.random() * 10 + 5; // 5 to 15s duration
+                    
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    element.textContent = symbol;
+                    element.style.fontSize = `${size}rem`;
+                    element.style.left = `${x}vw`;
+                    element.style.top = `${y}vh`;
+                    element.style.animationDelay = `${delay}s`;
+                    element.style.animationDuration = `${duration}s`;
+                    
+                    floatingElementsContainer.appendChild(element);
+                    
+                    setTimeout(() => {
+                        if (element.parentNode) {
+                            element.remove();
+                        }
+                    }, 10000);
+                }
+            }, 3000);
+        }
+        
+        createFloatingElements();
+        
+        // Add form validation feedback for registration form
+        document.querySelectorAll('#registrationForm input[required], #registrationForm select[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#ff6b6b';
+                    this.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.1)';
+                } else {
+                    this.style.borderColor = '#4CAF50';
+                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                }
+            });
+        });
+        
+        // Add interactive hover effects
+        document.querySelectorAll('.package-card, .age-group, .subject-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        });
+        
+        // Package selection logic
+        document.querySelectorAll('.package-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('packageType').value = this.dataset.package;
+            });
+        });
+
+        // Age group selection logic
+        document.querySelectorAll('.age-group').forEach(group => {
+            group.addEventListener('click', function() {
+                document.querySelectorAll('.age-group').forEach(g => g.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('ageGroup').value = this.dataset.age;
+            });
+        });
+
+        // Subject selection logic
+        document.querySelectorAll('.subject-card').forEach(subject => {
+            subject.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const selectedSubjects = Array.from(document.querySelectorAll('.subject-card.selected')).map(s => s.dataset.subject);
+                document.getElementById('subjects').value = selectedSubjects.join(', ');
+            });
+        });
+
+        // Handle registration form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Collect form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                currentLevel: document.getElementById('currentLevel').value,
+                sessionsPerWeek: document.getElementById('sessionsPerWeek').value,
+                timeSlots: Array.from(document.querySelectorAll('input[name="timeSlots"]:checked')).map(cb => cb.value).join(', '),
+                preferredDays: Array.from(document.querySelectorAll('input[name="preferredDays"]:checked')).map(cb => cb.value).join(', '),
+                specialNeeds: document.getElementById('specialNeeds').value,
+                country: document.getElementById('country').value,
+                packageType: document.getElementById('packageType').value,
+                ageGroup: document.getElementById('ageGroup').value,
+                subjects: document.getElementById('subjects').value
+            };
+
+            // Send email using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData) // استبدل بـ ID الخدمة و ID القالب الخاص بك
+                .then(function() {
+                    alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+                    document.getElementById('registrationForm').reset(); // Reset form
+                    document.querySelectorAll('.package-card, .age-group, .subject-card').forEach(card => {
+                        card.classList.remove('selected'); // Remove selected class
+                        card.style.transform = 'translateY(0) scale(1)'; // Reset transform
+                        card.style.borderColor = 'transparent'; // Reset border color
+                        card.style.boxShadow = 'none'; // Reset box-shadow
+                    });
+                    document.querySelectorAll('#registrationForm input[required], #registrationForm select[required]').forEach(field => {
+                        field.style.borderColor = '#e0e0e0'; // Reset form field borders
+                        field.style.boxShadow = 'none';
+                    });
+                }, function(error) {
+                    alert('عذراً، حدث خطأ أثناء إرسال طلبك. الرجاء المحاولة مرة أخرى لاحقاً.');
+                    console.error('EmailJS Error:', error);
+                });
+        });
+
+        // JavaScript from contact_us_page.html
+        // إضافة تأثيرات التفاعل عند مرور المرور على أيقونات التواصل
+        const contactIcons = document.querySelectorAll('.contact-icon');
+        contactIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 0.6s ease infinite';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.animation = 'none';
+            });
+        });
+
+        // Handle contact form submission
+        document.getElementById('contactFormNew').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            // Formsubmit will handle the submission
+            this.submit(); // Submit the form via Formsubmit
+        });
+
+        // Add form validation feedback for contact form
+        document.querySelectorAll('#contactFormNew input[required], #contactFormNew textarea[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#ff6b6b';
+                    this.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.1)';
+                } else {
+                    this.style.borderColor = '#4CAF50';
+                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
